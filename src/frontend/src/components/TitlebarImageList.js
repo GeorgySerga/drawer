@@ -6,6 +6,7 @@ import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
+import Paper from '@material-ui/core/Paper';
 import image from './logo512.png';
 
 const useStyles = makeStyles((theme) => ({
@@ -15,13 +16,17 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
+    padding: '25px',
   },
   imageList: {
     width: 700,
-    height: 700,
+    height: 600,
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
+  },
+  paperImageContainer: {
+    padding: '10px',
   },
 }));
 
@@ -51,34 +56,56 @@ const itemData = [
     title: 'Image4',
     author: 'author4',
   },
+  {
+    img: image,
+    title: 'Image5',
+    author: 'author5',
+  },
+  {
+    img: image,
+    title: 'Image6',
+    author: 'author6',
+  },
+  {
+    img: image,
+    title: 'Image7',
+    author: 'author7',
+  },
+  {
+    img: image,
+    title: 'Image8',
+    author: 'author8',
+  },
 ];
 function TitlebarImageList() {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <ImageList rowHeight={180} className={classes.imageList}>
-        <ImageListItem key="Subheader" cols={2} style={{ height: 'auto' }}>
-          <ListSubheader component="div">Public drawings</ListSubheader>
-        </ImageListItem>
-        {itemData.map((item) => (
-          <ImageListItem key={item.img}>
-            <img src={item.img} alt={item.title} />
-            <ImageListItemBar
-              title={item.title}
-              subtitle={<span>by: {item.author}</span>}
-              actionIcon={
-                <IconButton
-                  aria-label={`info about ${item.title}`}
-                  className={classes.icon}
-                >
-                  <InfoIcon />
-                </IconButton>
-              }
-            />
+      <Paper className={classes.paperImageContainer}>
+        <ImageList rowHeight={180} className={classes.imageList}>
+          <ImageListItem key="Subheader" cols={2} style={{ height: 'auto' }}>
+            <ListSubheader component="div">Public drawings</ListSubheader>
           </ImageListItem>
-        ))}
-      </ImageList>
+          {itemData.map((item) => (
+            <ImageListItem key={item.img}>
+              <img src={item.img} alt={item.title} />
+              <ImageListItemBar
+                title={item.title}
+                subtitle={<span>by: {item.author}</span>}
+                actionIcon={
+                  <IconButton
+                    aria-label={`info about ${item.title}`}
+                    className={classes.icon}
+                  >
+                    <InfoIcon />
+                  </IconButton>
+                }
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+      </Paper>
     </div>
   );
 }
