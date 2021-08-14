@@ -13,7 +13,7 @@ const useCanvas = () => {
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
     context.lineCap = 'round';
-    context.strokeStyle = 'black';
+    context.strokeStyle = '#111';
     context.lineWidth = 5;
 
     contextRef.current = context;
@@ -46,8 +46,8 @@ const useCanvas = () => {
       onMouseDown={startDrawing}
       onMouseUp={finishDrawing}
       onMouseMove={draw}
-      width="400px"
-      height="300px"
+      width="320px"
+      height="320px"
     />
   );
 

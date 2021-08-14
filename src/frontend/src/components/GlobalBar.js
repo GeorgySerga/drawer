@@ -32,7 +32,7 @@ export default function GlobalBar() {
           className={classes.title}
           to="/"
         >
-          Talkspace Drawer
+          Drawer
         </Typography>
         <Button color="inherit" component={Link} to="/draw">
           Draw
