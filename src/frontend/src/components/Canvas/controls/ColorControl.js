@@ -3,6 +3,11 @@ import { Box } from '@material-ui/core';
 
 const ColorControl = ({ context }) => {
   const [color, setColor] = useState(context.current?.strokeStyle);
+
+  const handleOnClick = () => {
+    context.current.strokeStyle = color;
+  };
+
   const handleChange = ({ target: { value } }) => {
     setColor(value);
     context.current.strokeStyle = value;
@@ -14,6 +19,7 @@ const ColorControl = ({ context }) => {
         type="color"
         value={color}
         onChange={handleChange}
+        onClick={handleOnClick}
       />
     </Box>
   );

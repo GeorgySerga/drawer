@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import LineWidthControl from './LineWidthControl';
 import ColorControl from './ColorControl';
 import EraseControl from './EraseControl';
+import EraserControl from './EraserControl';
 
 const useStyles = makeStyles({
   root: {
@@ -18,6 +19,7 @@ const CanvasControls = ({ context, save }) => {
   return (
     <Paper elevation={3} className={classes.root}>
       <LineWidthControl context={context} />
+      <EraserControl context={context} />
       <ColorControl context={context} />
       <EraseControl context={context} save={save} />
     </Paper>
