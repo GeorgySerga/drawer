@@ -1,7 +1,9 @@
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 import './App.css';
 import TitlebarImageList from './components/TitlebarImageList';
 import GlobalBar from './components/GlobalBar';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Canvas from './components/Canvas';
 
 function App() {
   return (
@@ -11,6 +13,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <TitlebarImageList />
+          </Route>
+          <Route path="/draw">
+            <Canvas />
           </Route>
         </Switch>
       </Router>
