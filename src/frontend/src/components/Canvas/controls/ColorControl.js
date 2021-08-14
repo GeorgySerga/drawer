@@ -8,7 +8,7 @@ const ColorControl = ({ context }) => {
     context.current.strokeStyle = value;
   };
   return (
-    <Box display="inline-block" marginRight="5px">
+    <Box display="inline-block" marginRight="5px" marginLeft="5px">
       <input
         name="Color picker"
         type="color"
