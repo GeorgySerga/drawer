@@ -18,7 +18,8 @@ const useCanvas = () => {
         context.drawImage(img, 0, 0);
       };
       const drawingHistory = JSON.parse(drawingHistoryRaw);
-      const encodedDrawing = drawingHistory[drawingHistory.length - 1];
+      const lastDrawing = Math.max(...Object.keys(drawingHistory));
+      const encodedDrawing = drawingHistory[lastDrawing].snapshot;
       img.src = encodedDrawing;
     }
 
@@ -32,17 +33,20 @@ const useCanvas = () => {
   const save = () => {
     let drawingHistoryRaw = localStorage.getItem('drawingHistory');
     if (!drawingHistoryRaw) {
-      const emptyDrawingHistory = JSON.stringify([]);
-      localStorage.setItem('drawing', emptyDrawingHistory);
+      const emptyDrawingHistory = JSON.stringify({});
       drawingHistoryRaw = emptyDrawingHistory;
     }
 
     let drawingHistory = JSON.parse(drawingHistoryRaw);
-    drawingHistory = drawingHistory.slice(
-      Math.max(drawingHistory.length - MAXIMUM_DRAWING_HISTORY_LENGTH - 1, 0)
-    );
+
+    const savesTimes = Object.keys(drawingHistory);
+    if (MAXIMUM_DRAWING_HISTORY_LENGTH <= savesTimes.length) {
+      const oldestSaveTime = Math.min(...savesTimes);
+      delete drawingHistory[oldestSaveTime];
+    }
+
     const snapshot = canvasRef.current.toDataURL();
-    drawingHistory.push(snapshot);
+    drawingHistory[Date.now()] = { snapshot };
 
     localStorage.setItem('drawingHistory', JSON.stringify(drawingHistory));
   };
