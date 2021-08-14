@@ -19,8 +19,9 @@ const useStyles = makeStyles((theme) => ({
     padding: '25px',
   },
   imageList: {
-    width: 700,
-    height: 600,
+    width: '100%',
+    maxWidth: 500,
+    height: '70vh',
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
