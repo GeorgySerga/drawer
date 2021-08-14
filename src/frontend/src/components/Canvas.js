@@ -1,54 +1,30 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React from 'react';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import useCanvas from '../hooks/useCanvas';
 
 const Canvas = () => {
-  const [isDrawing, setIsDrawing] = useState(false);
-  const canvasRef = useRef(null);
-  const contextRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-
-    context.fillStyle = 'blue';
-    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-
-    context.lineCap = 'round';
-    context.strokeStyle = 'black';
-    context.lineWidth = 5;
-
-    contextRef.current = context;
-  }, []);
-
-  const startDrawing = ({ nativeEvent }) => {
-    const { offsetX, offsetY } = nativeEvent;
-    contextRef.current.beginPath();
-    contextRef.current.moveTo(offsetX, offsetY);
-    setIsDrawing(true);
-  };
-
-  const finishDrawing = () => {
-    contextRef.current.closePath();
-    setIsDrawing(false);
-  };
-
-  const draw = ({ nativeEvent }) => {
-    if (!isDrawing) {
-      return;
-    }
-    const { offsetX, offsetY } = nativeEvent;
-    contextRef.current.lineTo(offsetX, offsetY);
-    contextRef.current.stroke();
-  };
-
+  const { Canvas } = useCanvas();
   return (
-    <canvas
-      ref={canvasRef}
-      onMouseDown={startDrawing}
-      onMouseUp={finishDrawing}
-      onMouseMove={draw}
-      width="400px"
-      height="300px"
-    />
+    <Grid
+      container
+      spacing={3}
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Grid item xs={6}>
+        {Canvas}
+      </Grid>
+      <Grid item xs={6} container spacing={3}>
+        <Grid item xs={6}>
+          <Paper elevation={3}>Drawing related controls</Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper elevation={3}>CRUD</Paper>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
