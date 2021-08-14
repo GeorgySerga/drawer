@@ -88,7 +88,7 @@ function TitlebarImageList() {
             <ListSubheader component="div">Public drawings</ListSubheader>
           </ImageListItem>
           {itemData.map((item) => (
-            <ImageListItem key={item.img}>
+            <ImageListItem key={item.img + item.title}>
               <img src={item.img} alt={item.title} />
               <ImageListItemBar
                 title={item.title}
