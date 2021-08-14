@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 
+const MAXIMUM_DRAWING_HISTORY_LENGTH = 20;
+
 const useCanvas = () => {
   const [isDrawing, setIsDrawing] = useState(false);
   const canvasRef = useRef(null);
@@ -35,10 +37,11 @@ const useCanvas = () => {
       drawingHistoryRaw = emptyDrawingHistory;
     }
 
-    const drawingHistory = JSON.parse(drawingHistoryRaw);
-
+    let drawingHistory = JSON.parse(drawingHistoryRaw);
+    drawingHistory = drawingHistory.slice(
+      Math.max(drawingHistory.length - MAXIMUM_DRAWING_HISTORY_LENGTH - 1, 0)
+    );
     const snapshot = canvasRef.current.toDataURL();
-    // TODO: Potential overflow
     drawingHistory.push(snapshot);
 
     localStorage.setItem('drawingHistory', JSON.stringify(drawingHistory));
