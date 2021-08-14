@@ -4,7 +4,7 @@ import useCanvas from '../../hooks/useCanvas';
 import CanvasControls from './controls';
 
 const Canvas = () => {
-  const { Canvas, context } = useCanvas();
+  const { Canvas, context, save } = useCanvas();
 
   return (
     <Grid
@@ -17,7 +17,7 @@ const Canvas = () => {
         {Canvas}
       </Grid>
       <Grid item xs={12} md={6}>
-        <CanvasControls context={context} />
+        <CanvasControls context={context} save={save} />
       </Grid>
     </Grid>
   );

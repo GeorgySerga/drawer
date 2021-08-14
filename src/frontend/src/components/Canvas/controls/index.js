@@ -13,13 +13,13 @@ const useStyles = makeStyles({
   },
 });
 
-const CanvasControls = ({ context }) => {
+const CanvasControls = ({ context, save }) => {
   const classes = useStyles();
   return (
     <Paper elevation={3} className={classes.root}>
       <LineWidthControl context={context} />
       <ColorControl context={context} />
-      <EraseControl context={context} />
+      <EraseControl context={context} save={save} />
     </Paper>
   );
 };

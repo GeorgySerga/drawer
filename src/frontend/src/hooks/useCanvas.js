@@ -27,7 +27,7 @@ const useCanvas = () => {
     contextRef.current = context;
   }, []);
 
-  const save = (data) => {
+  const save = () => {
     let drawingHistoryRaw = localStorage.getItem('drawingHistory');
     if (!drawingHistoryRaw) {
       const emptyDrawingHistory = JSON.stringify([]);
@@ -37,8 +37,9 @@ const useCanvas = () => {
 
     const drawingHistory = JSON.parse(drawingHistoryRaw);
 
+    const snapshot = canvasRef.current.toDataURL();
     // TODO: Potential overflow
-    drawingHistory.push(data);
+    drawingHistory.push(snapshot);
 
     localStorage.setItem('drawingHistory', JSON.stringify(drawingHistory));
   };
@@ -53,7 +54,7 @@ const useCanvas = () => {
   const finishDrawing = () => {
     contextRef.current.closePath();
     setIsDrawing(false);
-    save(canvasRef.current.toDataURL());
+    save();
   };
 
   const draw = ({ nativeEvent }) => {
@@ -79,6 +80,7 @@ const useCanvas = () => {
 
   return {
     context: contextRef,
+    save,
     Canvas,
   };
 };
