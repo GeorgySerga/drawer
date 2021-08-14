@@ -9,8 +9,16 @@ const useCanvas = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
-    context.fillStyle = 'blue';
-    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+    const drawingHistoryRaw = localStorage.getItem('drawingHistory');
+    if (drawingHistoryRaw) {
+      var img = new Image();
+      img.onload = function () {
+        context.drawImage(img, 0, 0);
+      };
+      const drawingHistory = JSON.parse(drawingHistoryRaw);
+      const encodedDrawing = drawingHistory[drawingHistory.length - 1];
+      img.src = encodedDrawing;
+    }
 
     context.lineCap = 'round';
     context.strokeStyle = '#111';
@@ -18,6 +26,22 @@ const useCanvas = () => {
 
     contextRef.current = context;
   }, []);
+
+  const save = (data) => {
+    let drawingHistoryRaw = localStorage.getItem('drawingHistory');
+    if (!drawingHistoryRaw) {
+      const emptyDrawingHistory = JSON.stringify([]);
+      localStorage.setItem('drawing', emptyDrawingHistory);
+      drawingHistoryRaw = emptyDrawingHistory;
+    }
+
+    const drawingHistory = JSON.parse(drawingHistoryRaw);
+
+    // TODO: Potential overflow
+    drawingHistory.push(data);
+
+    localStorage.setItem('drawingHistory', JSON.stringify(drawingHistory));
+  };
 
   const startDrawing = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
@@ -29,6 +53,7 @@ const useCanvas = () => {
   const finishDrawing = () => {
     contextRef.current.closePath();
     setIsDrawing(false);
+    save(canvasRef.current.toDataURL());
   };
 
   const draw = ({ nativeEvent }) => {
@@ -48,6 +73,7 @@ const useCanvas = () => {
       onMouseMove={draw}
       width="320px"
       height="320px"
+      style={{ border: '1px solid #eee' }}
     />
   );
 
