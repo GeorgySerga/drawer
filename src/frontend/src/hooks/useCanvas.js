@@ -64,12 +64,18 @@ const useCanvas = () => {
     save();
   };
 
-  const draw = ({ nativeEvent }) => {
+  const draw = (e) => {
     if (!isDrawing) {
       return;
     }
-    const { offsetX, offsetY } = nativeEvent;
-    contextRef.current.lineTo(offsetX, offsetY);
+    let { offsetX: x, offsetY: y } = e.nativeEvent;
+    if (!x && !y) {
+      const rect = e.target.getBoundingClientRect();
+      x = e.targetTouches[0].pageX - rect.left;
+      y = e.targetTouches[0].pageY - rect.top;
+    }
+
+    contextRef.current.lineTo(x, y);
     contextRef.current.stroke();
   };
 
@@ -77,8 +83,11 @@ const useCanvas = () => {
     <canvas
       ref={canvasRef}
       onMouseDown={startDrawing}
+      onTouchStart={startDrawing}
       onMouseUp={finishDrawing}
+      onTouchEnd={finishDrawing}
       onMouseMove={draw}
+      onTouchMove={draw}
       width="320px"
       height="320px"
       style={{ border: '1px solid #eee' }}

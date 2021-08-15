@@ -9,7 +9,11 @@ const EraseControl = ({ context, save }) => {
     save();
   };
   return (
-    <IconButton aria-label="Erase everything" onClick={handleChange}>
+    <IconButton
+      aria-label="Erase everything!"
+      onClick={handleChange}
+      title="Erase everything!"
+    >
       <LayersClearIcon />
     </IconButton>
   );

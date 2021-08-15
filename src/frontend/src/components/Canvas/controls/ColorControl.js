@@ -20,6 +20,7 @@ const ColorControl = ({ context }) => {
         value={color}
         onChange={handleChange}
         onClick={handleOnClick}
+        title="Change line color"
       />
     </Box>
   );

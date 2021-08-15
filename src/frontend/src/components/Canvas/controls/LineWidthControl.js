@@ -38,6 +38,7 @@ const LineWidthControl = ({ context }) => {
     <>
       <IconButton
         aria-label="Change line weight"
+        title="Change line weight"
         onClick={openPopover}
         aria-describedby={id}
       >

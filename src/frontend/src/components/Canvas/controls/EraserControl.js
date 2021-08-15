@@ -8,7 +8,11 @@ const EraserControl = ({ context }) => {
     context.current.strokeStyle = '#FFFFFF';
   };
   return (
-    <IconButton aria-label="Go back" onClick={handleChange}>
+    <IconButton
+      aria-label="Use eraser"
+      onClick={handleChange}
+      title="Use eraser"
+    >
       <SvgIcon>
         <Eraser />
       </SvgIcon>
