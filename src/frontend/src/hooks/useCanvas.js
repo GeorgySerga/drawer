@@ -90,7 +90,7 @@ const useCanvas = () => {
       onTouchMove={draw}
       width="320px"
       height="320px"
-      style={{ border: '1px solid #eee' }}
+      style={{ border: '1px solid #eee', touchAction: 'none' }}
     />
   );
 
