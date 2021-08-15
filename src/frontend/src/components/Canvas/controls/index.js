@@ -11,6 +11,8 @@ const useStyles = makeStyles({
     display: 'flex',
     alignContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: '320px',
   },
 });
 
