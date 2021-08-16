@@ -1,4 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
+import {
+  getCursorPosition,
+  loadImageToCanvas,
+  scaleCanvas,
+} from '../utils/canvas';
 
 const MAXIMUM_DRAWING_HISTORY_LENGTH = 20;
 
@@ -11,17 +16,9 @@ const useCanvas = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
-    const drawingHistoryRaw = localStorage.getItem('drawingHistory');
-    if (drawingHistoryRaw) {
-      var img = new Image();
-      img.onload = function () {
-        context.drawImage(img, 0, 0);
-      };
-      const drawingHistory = JSON.parse(drawingHistoryRaw);
-      const lastDrawing = Math.max(...Object.keys(drawingHistory));
-      const encodedDrawing = drawingHistory[lastDrawing].snapshot;
-      img.src = encodedDrawing;
-    }
+    scaleCanvas({ canvas, context });
+
+    loadImageToCanvas({ canvas, context });
 
     context.lineCap = 'round';
     context.strokeStyle = '#111';
@@ -51,10 +48,10 @@ const useCanvas = () => {
     localStorage.setItem('drawingHistory', JSON.stringify(drawingHistory));
   };
 
-  const startDrawing = ({ nativeEvent }) => {
-    const { offsetX, offsetY } = nativeEvent;
+  const startDrawing = (event) => {
+    const { x, y } = getCursorPosition(event);
     contextRef.current.beginPath();
-    contextRef.current.moveTo(offsetX, offsetY);
+    contextRef.current.moveTo(x, y);
     setIsDrawing(true);
   };
 
@@ -64,17 +61,11 @@ const useCanvas = () => {
     save();
   };
 
-  const draw = (e) => {
+  const draw = (event) => {
     if (!isDrawing) {
       return;
     }
-    let { offsetX: x, offsetY: y } = e.nativeEvent;
-    if (!x && !y) {
-      const rect = e.target.getBoundingClientRect();
-      x = e.targetTouches[0].pageX - rect.left;
-      y = e.targetTouches[0].pageY - rect.top;
-    }
-
+    const { x, y } = getCursorPosition(event);
     contextRef.current.lineTo(x, y);
     contextRef.current.stroke();
   };
