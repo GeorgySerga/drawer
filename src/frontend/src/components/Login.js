@@ -20,7 +20,7 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const submit = () => {
+  const login = () => {
     fetch('http://localhost:3001/api/login', {
       method: 'POST',
       body: JSON.stringify({
@@ -32,8 +32,32 @@ const Login = () => {
         'Content-Type': 'application/json',
       },
     })
-      .then(console.log)
-      .catch(console.error);
+      .then(async (response) => {
+        if (!response.ok) {
+          alert(await response.text());
+        }
+      })
+      .catch(alert);
+  };
+
+  const register = () => {
+    fetch('http://localhost:3001/api/register', {
+      method: 'POST',
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          alert(await response.text());
+        }
+      })
+      .catch(alert);
   };
 
   return (
@@ -54,8 +78,21 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button variant="contained" color="primary" onClick={submit}>
+        <Button
+          className={classes.input}
+          variant="contained"
+          color="primary"
+          onClick={login}
+        >
           Login
+        </Button>
+        <Button
+          className={classes.input}
+          variant="contained"
+          color="primary"
+          onClick={register}
+        >
+          Register
         </Button>
       </form>
     </Paper>

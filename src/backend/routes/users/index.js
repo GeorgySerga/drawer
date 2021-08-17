@@ -22,9 +22,12 @@ const register = async (request, response) => {
     [username, hashedPassword],
     (error, _) => {
       if (error) {
+        if (error.routine === '_bt_check_unique') {
+          return response.status(409).send('Already exists');
+        }
         throw error;
       }
-      response.status(201).send(`Account created`);
+      response.status(201).send('Account created');
     }
   );
 };
