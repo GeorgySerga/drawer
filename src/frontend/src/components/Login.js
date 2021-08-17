@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import { useAuthContext } from '../providers/AuthProvider';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -17,6 +18,7 @@ const useStyles = makeStyles(() => ({
 
 const Login = ({ history }) => {
   const classes = useStyles();
+  const { setUser } = useAuthContext();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -36,6 +38,9 @@ const Login = ({ history }) => {
         if (!response.ok) {
           return alert(await response.text());
         }
+        const user = await response.json();
+        setUser(user);
+        localStorage.setItem('user', JSON.stringify(user));
         history.replace({
           pathname: '/',
         });

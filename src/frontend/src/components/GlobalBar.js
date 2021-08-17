@@ -5,6 +5,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { useAuthContext } from '../providers/AuthProvider';
+import Logout from './Logout';
 
 const useStyles = makeStyles({
   title: {
@@ -23,6 +25,7 @@ const useStyles = makeStyles({
 
 export default function GlobalBar() {
   const classes = useStyles();
+  const auth = useAuthContext();
 
   return (
     <AppBar position="static" className={classes.bar}>
@@ -38,9 +41,13 @@ export default function GlobalBar() {
         <Button color="inherit" component={Link} to="/draw">
           Draw
         </Button>
-        <Button color="inherit" component={Link} to="/login">
-          Login
-        </Button>
+        {auth.isAuthenticated() ? (
+          <Logout />
+        ) : (
+          <Button color="inherit" component={Link} to="/login">
+            Login
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );
