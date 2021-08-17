@@ -12,9 +12,7 @@ const Content = () => (
     <Route path="/draw">
       <Canvas />
     </Route>
-    <Route path="/login">
-      <Login />
-    </Route>
+    <Route path="/login" component={Login} />
   </Switch>
 );
 

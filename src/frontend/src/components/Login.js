@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     padding: '10px',
     display: 'flex',
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = () => {
+const Login = ({ history }) => {
   const classes = useStyles();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -34,8 +34,11 @@ const Login = () => {
     })
       .then(async (response) => {
         if (!response.ok) {
-          alert(await response.text());
+          return alert(await response.text());
         }
+        history.replace({
+          pathname: '/',
+        });
       })
       .catch(alert);
   };

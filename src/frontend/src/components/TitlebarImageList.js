@@ -50,11 +50,11 @@ function TitlebarImageList() {
       <Paper className={classes.paperImageContainer}>
         <ImageList rowHeight={180} className={classes.imageList}>
           <ImageListItem key="Subheader" cols={2} style={{ height: 'auto' }}>
-            <ListSubheader component="div">Public drawings</ListSubheader>
+            <ListSubheader component="div">Drawings</ListSubheader>
           </ImageListItem>
           {data.map((item) => (
             <ImageListItem key={item.image}>
-              <img src={item.image} alt="Public drawing" />
+              <img src={item.image} alt="Drawing" />
               <ImageListItemBar
                 subtitle={<span>by: {item.username}</span>}
                 actionIcon={
