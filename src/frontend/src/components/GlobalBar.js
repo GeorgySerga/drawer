@@ -11,6 +11,7 @@ const useStyles = makeStyles({
     flexGrow: 1,
     textDecoration: 'none',
     fontWeight: 'bold',
+    color: 'white',
     '&:visited': {
       color: 'white',
     },
@@ -37,7 +38,9 @@ export default function GlobalBar() {
         <Button color="inherit" component={Link} to="/draw">
           Draw
         </Button>
-        <Button color="inherit">Login</Button>
+        <Button color="inherit" component={Link} to="/login">
+          Login
+        </Button>
       </Toolbar>
     </AppBar>
   );

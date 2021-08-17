@@ -17,7 +17,7 @@ const Canvas = () => {
   const classes = useStyles();
 
   function onClick() {
-    fetch('http://localhost:3001/images', {
+    fetch('http://localhost:3001/api/images', {
       method: 'POST',
       body: JSON.stringify({
         private: false,

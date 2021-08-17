@@ -39,7 +39,7 @@ function TitlebarImageList() {
 
   useEffect(() => {
     (async () => {
-      const data = await fetch('/images');
+      const data = await fetch('/api/images', { credentials: 'include' });
       const json = await data.json();
       setData(json);
     })();
