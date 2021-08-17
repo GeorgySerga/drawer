@@ -1,17 +1,25 @@
 const pool = require('../../db/pool');
 
-const getImages = (request, response, next) => {
-  const user = request.user;
-  const query = request.isAuthenticated()
-    ? 'SELECT * FROM drawings WHERE private = false OR username = $1 ORDER BY id DESC LIMIT 100'
-    : 'SELECT * FROM drawings WHERE private = false ORDER BY id DESC LIMIT 100';
-
-  return pool.query(query, [user.username], (error, results) => {
+const getImages = (request, response) => {
+  const cb = (error, results) => {
     if (error) {
       throw error;
     }
     response.status(200).json(results.rows);
-  });
+  };
+  if (request.isAuthenticated()) {
+    const { username } = request.user;
+    return pool.query(
+      'SELECT * FROM drawings WHERE private = false OR username = $1 ORDER BY id DESC LIMIT 100',
+      [username],
+      cb
+    );
+  }
+
+  return pool.query(
+    'SELECT * FROM drawings WHERE private = false ORDER BY id DESC LIMIT 100',
+    cb
+  );
 };
 
 const createImage = (request, response) => {
