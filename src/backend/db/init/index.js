@@ -8,10 +8,12 @@ const client = new Client({
   port: 5432,
 });
 
-const execute = async (query) => {
+const execute = async (queries) => {
   try {
     await client.connect();
-    await client.query(query);
+    for (query of queries) {
+      await client.query(query);
+    }
     return true;
   } catch (error) {
     console.error(error.stack);
@@ -30,8 +32,16 @@ const drawings = `
 	    PRIMARY KEY ("id")
     );`;
 
-execute(drawings).then((result) => {
+const users = `
+    CREATE TABLE IF NOT EXISTS "users" (
+	    "id" SERIAL,
+	    "username" VARCHAR(255) UNIQUE NOT NULL,
+	    "password" VARCHAR(255) NOT NULL,
+	    PRIMARY KEY ("id")
+    );`;
+
+execute([drawings, users]).then((result) => {
   if (result) {
-    console.log('Table "drawings" created');
+    console.log('Tables created');
   }
 });
