@@ -38,9 +38,11 @@ export default function GlobalBar() {
         >
           Drawer
         </Typography>
-        <Button color="inherit" component={Link} to="/draw">
-          Draw
-        </Button>
+        {auth.isAuthenticated() && (
+          <Button color="inherit" component={Link} to="/draw">
+            Draw
+          </Button>
+        )}
         {auth.isAuthenticated() ? (
           <Logout />
         ) : (

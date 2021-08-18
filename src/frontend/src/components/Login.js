@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
@@ -16,8 +17,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Login = ({ history }) => {
+const Login = () => {
   const classes = useStyles();
+  const history = useHistory();
   const { setUser } = useAuthContext();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
