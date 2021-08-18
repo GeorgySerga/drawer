@@ -23,20 +23,43 @@ const getImages = (request, response) => {
 };
 
 const createImage = (request, response) => {
-  if (!req.isAuthenticated()) {
-    response.status(401).send('Not allowed to upload images unauthorized');
+  if (!request.isAuthenticated()) {
+    return response
+      .status(401)
+      .send('Not allowed to upload images unauthorized');
   }
 
   const { image, private, user } = request.body;
 
-  pool.query(
+  return pool.query(
     `INSERT INTO drawings (image, private, username) VALUES ($1, $2, $3)`,
     [image, private, user],
     (error, results) => {
       if (error) {
         throw error;
       }
-      response.status(201).send(`Image added with ID: ${results.insertId}`);
+      return response
+        .status(201)
+        .send(`Image added with ID: ${results.insertId}`);
+    }
+  );
+};
+
+const deleteImage = (request, response) => {
+  if (!request.isAuthenticated()) {
+    return response.status(401).send('Not allowed if unauthorized');
+  }
+
+  const { user, id } = request.body;
+
+  return pool.query(
+    `DELETE FROM drawings WHERE username = $1 AND id = $2`,
+    [user, id],
+    (error) => {
+      if (error) {
+        throw error;
+      }
+      return response.status(201).send(`Image deleted`);
     }
   );
 };
@@ -44,4 +67,5 @@ const createImage = (request, response) => {
 module.exports = {
   getImages,
   createImage,
+  deleteImage,
 };

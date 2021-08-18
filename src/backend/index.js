@@ -45,6 +45,7 @@ app.get('/', (_, response) => {
 
 app.get('/api/images', imagesRoutes.getImages);
 app.post('/api/images', imagesRoutes.createImage);
+app.delete('/api/images', imagesRoutes.deleteImage);
 
 app.post('/api/login', usersRoutes.login);
 app.post('/api/register', usersRoutes.register);
