@@ -3,8 +3,8 @@
 ## How to run
 - Start postgres server (the app expects it to be running on the default port `5432` and have the default user `postgres`);
 - Run seed file to create tables (should not exist before) `node src/backend/db/init/index.js`;
-- Inside `/src/backend` run `node index.js`;
-- Inside `/src/frontend` run `yarn start` (or `npm run start`)
+- Inside `/src/backend` run `npm i` then `node index.js`;
+- Inside `/src/frontend` run `yarn` (or `npm i`) then `yarn start` (or `npm run start`)
 
 ## Demo
 ![Demo](demo.gif)
