@@ -48,6 +48,7 @@ app.post('/api/images', imagesRoutes.createImage);
 
 app.post('/api/login', usersRoutes.login);
 app.post('/api/register', usersRoutes.register);
+app.get('/api/logout', usersRoutes.logout);
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);

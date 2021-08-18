@@ -32,4 +32,9 @@ const register = async (request, response) => {
   );
 };
 
-module.exports = { login, register };
+const logout = (request, response) => {
+  request.logout();
+  response.status(200).send('Logged out');
+};
+
+module.exports = { login, register, logout };
