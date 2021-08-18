@@ -30,7 +30,7 @@ const Canvas = () => {
   };
 
   function onClick() {
-    fetch('http://localhost:3001/api/images', {
+    fetch('/api/images', {
       method: 'POST',
       body: JSON.stringify({
         private: isPrivateUpload,

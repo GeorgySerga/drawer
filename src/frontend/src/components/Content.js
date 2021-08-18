@@ -1,6 +1,6 @@
 import { Switch, Route } from 'react-router-dom';
 
-import TitlebarImageList from './TitlebarImageList';
+import TitlebarImageList from './ImageList/TitlebarImageList';
 import Canvas from './Canvas';
 import Login from './Login';
 

@@ -4,9 +4,9 @@ import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
 import Paper from '@material-ui/core/Paper';
+import DeleteItemButton from './DeleteItemButton';
+import { useAuthContext } from '../../providers/AuthProvider';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,9 +22,6 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 500,
     height: '70vh',
   },
-  icon: {
-    color: 'rgba(255, 255, 255, 0.54)',
-  },
   paperImageContainer: {
     padding: '10px',
     [theme.breakpoints.up('sm')]: {
@@ -34,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function TitlebarImageList() {
+  const { user } = useAuthContext();
   const classes = useStyles();
   const [data, setData] = useState([]);
 
@@ -47,6 +45,10 @@ function TitlebarImageList() {
     })();
   }, []);
 
+  const isPersonal = (username) => username === user?.username;
+  const deleteImage = (index) =>
+    setData([...data.slice(0, index), ...data.slice(index + 1)]);
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paperImageContainer}>
@@ -54,23 +56,25 @@ function TitlebarImageList() {
           <ImageListItem key="Subheader" cols={2} style={{ height: 'auto' }}>
             <ListSubheader component="div">Drawings</ListSubheader>
           </ImageListItem>
-          {data.map((item) => (
-            <ImageListItem key={item.image}>
-              <img src={item.image} alt="Drawing" />
+          {data.map(({ image, id, username, date }, index) => (
+            <ImageListItem key={image}>
+              <img src={image} alt="Drawing" />
               <ImageListItemBar
                 subtitle={
                   <span>
-                    by: {item.username},<br />
-                    uploaded: {new Date(item.date).toDateString()}
+                    by: {username},<br />
+                    uploaded: {new Date(date).toDateString()}
                   </span>
                 }
                 actionIcon={
-                  <IconButton
-                    aria-label={`info about ${item.username}'s work`}
-                    className={classes.icon}
-                  >
-                    <InfoIcon />
-                  </IconButton>
+                  isPersonal(username) && (
+                    <DeleteItemButton
+                      username={username}
+                      id={id}
+                      index={index}
+                      deleteImage={deleteImage}
+                    />
+                  )
                 }
               />
             </ImageListItem>
