@@ -23,6 +23,10 @@ const getImages = (request, response) => {
 };
 
 const createImage = (request, response) => {
+  if (!req.isAuthenticated()) {
+    response.status(401).send('Not allowed to upload images unauthorized');
+  }
+
   const { image, private, user } = request.body;
 
   pool.query(
