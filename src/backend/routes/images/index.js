@@ -34,13 +34,11 @@ const createImage = (request, response) => {
   return pool.query(
     `INSERT INTO drawings (image, private, username) VALUES ($1, $2, $3)`,
     [image, private, user],
-    (error, results) => {
+    (error, _) => {
       if (error) {
         throw error;
       }
-      return response
-        .status(201)
-        .send(`Image added with ID: ${results.insertId}`);
+      return response.status(201).send(`Image added`);
     }
   );
 };
