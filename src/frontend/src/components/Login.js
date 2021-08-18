@@ -11,9 +11,11 @@ const useStyles = makeStyles(() => ({
     padding: '10px',
     display: 'flex',
     justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
   },
   input: {
-    margin: '0 5px',
+    margin: '5px',
   },
 }));
 
@@ -73,37 +75,41 @@ const Login = () => {
   return (
     <Paper className={classes.container}>
       <form noValidate autoComplete="off">
-        <TextField
-          className={classes.input}
-          id="username"
-          label="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <TextField
-          className={classes.input}
-          id="password"
-          label="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button
-          className={classes.input}
-          variant="contained"
-          color="primary"
-          onClick={login}
-        >
-          Login
-        </Button>
-        <Button
-          className={classes.input}
-          variant="contained"
-          color="primary"
-          onClick={register}
-        >
-          Register
-        </Button>
+        <div>
+          <TextField
+            className={classes.input}
+            id="username"
+            label="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <TextField
+            className={classes.input}
+            id="password"
+            label="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div>
+          <Button
+            className={classes.input}
+            variant="contained"
+            color="primary"
+            onClick={login}
+          >
+            Login
+          </Button>
+          <Button
+            className={classes.input}
+            variant="contained"
+            color="primary"
+            onClick={register}
+          >
+            Register
+          </Button>
+        </div>
       </form>
     </Paper>
   );
