@@ -58,7 +58,12 @@ function TitlebarImageList() {
             <ImageListItem key={item.image}>
               <img src={item.image} alt="Drawing" />
               <ImageListItemBar
-                subtitle={<span>by: {item.username}</span>}
+                subtitle={
+                  <span>
+                    by: {item.username},<br />
+                    uploaded: {new Date(item.date).toDateString()}
+                  </span>
+                }
                 actionIcon={
                   <IconButton
                     aria-label={`info about ${item.username}'s work`}

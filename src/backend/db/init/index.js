@@ -29,6 +29,7 @@ const drawings = `
       "private" BOOLEAN NOT NULL,
 	    "image" VARCHAR NOT NULL,
 	    "username" VARCHAR(255) NOT NULL,
+      "date" DATE DEFAULT NOW(),
 	    PRIMARY KEY ("id")
     );`;
 
